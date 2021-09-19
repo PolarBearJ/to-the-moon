@@ -14,7 +14,7 @@ const Container = styled.div`
   background-color: #474448;
 `
 const Button = styled.button`
-  transform: translateY(-600%);
+  transform: translateY(-550%);
   min-width: 100px;
   padding: 16px 32px;
   border-radius: 10px;
@@ -47,15 +47,17 @@ export default function Dashboard() {
         "Closed": [],
         nums: 1
     })
-
+    let [reload, setReload] = useState(0);
     return(
         <div className="dashboard">
             <GlobalStyle/>
             <Container>
                 <Button onClick={openModal}>Report a bug <AiFillBug/></Button>
                 <Modal showModal={showModal} setShowModal={setShowModal} bugTracker={bugTracker}/>
-                <State title={"Open"} bugList={bugTracker["Open"]} bugTracker={bugTracker} setBugTracker={setBugTracker}/>
+                <State title={"Open"} bugList={bugTracker["Open"]} bugTracker={bugTracker} setBugTracker={setBugTracker} reload={reload} setReload={setReload}/>
                 <State title={"In Progress"} bugList={bugTracker["In Progress"]}/>
+                <State title={"Test"} bugList={bugTracker["Test"]}/>
+                <State title={"Closed"} bugList={bugTracker["Closed"]}/>
 
             </Container>
         </div>

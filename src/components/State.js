@@ -26,14 +26,14 @@ const Container = styled.div`
 `
 
 
-export default function State({title, bugList, bugTracker, setBugTracker}) {
+export default function State({title, bugList, bugTracker, setBugTracker, reload, setReload}) {
     return(
         <>
             <Container>
                 <Title>{title}</Title>
                 {bugList.length > 0 ? (
                     bugList.map(bug => {
-                        return <BugCard bug={bug} bugTracker={bugTracker} setBugTracker={setBugTracker}/>
+                        return <BugCard bug={bug} bugTracker={bugTracker} setBugTracker={setBugTracker} reload={reload} setReload={setReload}/>
                         })
                 ) : null}
             </Container>

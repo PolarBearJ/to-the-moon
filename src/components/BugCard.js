@@ -54,7 +54,7 @@ const Priority = styled.div`
   position: absolute;
   `
 
-export default function BugCard({bug, bugTracker, setBugTracker}) {
+export default function BugCard({bug, bugTracker, setBugTracker, reload, setReload}) {
     const title = bug.title;
     const num = bug.num;
     const status = bug.status;
@@ -73,7 +73,7 @@ export default function BugCard({bug, bugTracker, setBugTracker}) {
         <>
             <GlobalStyle/>
                 <Container>
-                    <BugModal setBugTracker={setBugTracker} showBugModal={showBugModal} setShowBugModal={setShowBugModal} bugTracker={bugTracker} bug={bug}/>
+                    <BugModal setBugTracker={setBugTracker} showBugModal={showBugModal} setShowBugModal={setShowBugModal} bugTracker={bugTracker} bug={bug} reload={reload} setReload={setReload}/>
                     <Title>{title}</Title> <Button onClick={openBugModal}>Inspect</Button>
                     <Field><AiOutlineNumber/> {num}</Field>
                     <Priority>{bug.priority > 0 ? (

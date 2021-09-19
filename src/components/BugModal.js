@@ -67,7 +67,7 @@ const BugModalButton = styled.button`
     margin-top: 10px;
 `;
 
-export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBugTracker}) => {
+export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBugTracker, reload, setReload}) => {
     const optionParser = {
         "Low": 1,
         "Moderate": 2,
@@ -100,6 +100,31 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
         }
     }
     function updateBug(){
+        let bug_status = bug.status;
+        let num = bug.num;
+        let len = bugTracker[status].length;
+        let bugIndex;
+        let changeState = false;
+        for(let i = 0; i < len; i++){
+            if (bugTracker[bug_status][i].num == num){
+                if (status != bug.status) changeState = true;
+                bugIndex = i;
+            }
+        }
+        if (changeState){
+            let newBug = {
+                num: num,
+                title: title,
+                status: status,
+                desc: desc,
+                priority: prio
+            }
+            console.log(bugTracker[bug_status]);
+            bugTracker[bug_status].splice(bugIndex, 1);
+            console.log(bugTracker[bug_status]);
+            bugTracker[status].push(newBug);
+            console.log(bugTracker[status]);
+        }
         setShowBugModal(false);
     }
     function deleteBug(){
@@ -115,7 +140,7 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
         bugTracker[status].splice(bugIndex, 1);
         setBugTracker(bugTracker);
         setShowBugModal(false);
-
+        setReload(1);
     }
 
     return (
