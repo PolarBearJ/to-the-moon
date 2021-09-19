@@ -72,6 +72,7 @@ export const Modal = ({showModal, setShowModal, bugTracker}) => {
             setShowModal(false);
         }
     }
+    const [refresh, setRefresh] = useState(false);
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
     const [prio, setPrio] = useState(1)
@@ -91,7 +92,7 @@ export const Modal = ({showModal, setShowModal, bugTracker}) => {
             desc: desc,
             priority: optionParser[selectedOption]
         }
-        bugTracker.open.push(newBug);
+        bugTracker["Open"].push(newBug);
         setShowModal(false);
     }
 

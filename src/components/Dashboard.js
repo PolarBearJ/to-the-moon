@@ -33,14 +33,6 @@ let testBug = {
     priority: 2
 }
 
-let bugTracker = {
-    open: [testBug],
-    in_progress: [],
-    test: [],
-    closed: [],
-    nums: 1
-}
-
 export default function Dashboard() {
     const [showModal, setShowModal] = useState(false)
 
@@ -48,14 +40,22 @@ export default function Dashboard() {
         setShowModal(prev => !prev);
     }
 
+    let [bugTracker, setBugTracker] = useState({
+        "Open": [testBug],
+        "In Progress": [],
+        "Test": [],
+        "Closed": [],
+        nums: 1
+    })
+
     return(
         <div className="dashboard">
             <GlobalStyle/>
             <Container>
                 <Button onClick={openModal}>Report a bug <AiFillBug/></Button>
                 <Modal showModal={showModal} setShowModal={setShowModal} bugTracker={bugTracker}/>
-                <State title={"Open"} bugList={bugTracker.open}/>
-                <State title={"In Progress"} bugList={bugTracker.in_progress}/>
+                <State title={"Open"} bugList={bugTracker["Open"]} bugTracker={bugTracker} setBugTracker={setBugTracker}/>
+                <State title={"In Progress"} bugList={bugTracker["In Progress"]}/>
 
             </Container>
         </div>
