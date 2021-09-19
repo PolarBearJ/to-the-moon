@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { MdClose } from "react-icons/md";
 import {Form, Row, Col, Button, Modal} from "react-bootstrap";
 import {BsFillTrashFill} from "react-icons/all";
+import './BugModal.css'
 
 const Background = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ const BugModalWrapper = styled.div`
   width: 300px;
   height: 475px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #fff;
+  background: #E0DDCF;
   color: #000;
   display: grid;
   grid-template-columns: 1fr;
@@ -59,6 +60,7 @@ const CloseBugModalButton = styled(MdClose)`
 `;
 
 const Field = styled.div`
+    color: #2D232E;
     text-align: center;
     padding: 10px 24px;
 `;
@@ -188,7 +190,7 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
                         </Col>
                         <Col xs={6}>
                             <PadButton>
-                            <Button variant="secondary" onClick={updateBug}>Save Changes</Button>{' '}
+                            <Button variant="secondary" className={"save_changes"} onClick={updateBug}>Save Changes</Button>{' '}
                             </PadButton>
                         </Col>
                     </Row>
