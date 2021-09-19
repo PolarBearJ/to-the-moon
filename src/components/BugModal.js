@@ -3,7 +3,7 @@ import {useSpring, animated} from "react-spring";
 import styled, { css } from 'styled-components'
 import { MdClose } from "react-icons/md";
 import {Form, Row, Col, Button, Modal} from "react-bootstrap";
-import {AiOutlineNumber} from "react-icons/all";
+import {BsFillTrashFill} from "react-icons/all";
 
 const Background = styled.div`
   width: 100%;
@@ -18,13 +18,13 @@ const Background = styled.div`
 
 const BugModalWrapper = styled.div`
   width: 300px;
-  height: 400px;
+  height: 475px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
   display: grid;
   grid-template-columns: 1fr;
-  position: relative;
+  position: absolute;
   z-index: 10;
   border-radius: 10px;
 `;
@@ -58,13 +58,12 @@ const CloseBugModalButton = styled(MdClose)`
   z-index: 10;
 `;
 
-const BugModalButton = styled.button`
+const Field = styled.div`
+    text-align: center;
     padding: 10px 24px;
-    background: #141414;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
+`;
+const PadButton = styled.div`
+    padding: 10px 24px;
 `;
 
 export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBugTracker, reload, setReload}) => {
@@ -92,7 +91,6 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
     const animation = useSpring({
         config: {duration: 250},
         opacity: showBugModal ? 1 : 0,
-        transform: showBugModal ? `translateY(0%)` : `translateY(-100%)`
     })
     const closeBugModal = e => {
         if(BugModalRef.current === e.target){
@@ -107,17 +105,16 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
         for(let i = 0; i < len; i++){
             if (bugTracker[bug_status][i].num == num) bugIndex = i;
         }
-        if (selectedOptionStatus != bug_status){
             let newBug = {
                 num: num,
                 title: title,
                 status: selectedOptionStatus,
                 desc: desc,
-                priority: prio
+                priority: optionParser[selectedOption]
             }
             bugTracker[bug_status].splice(bugIndex, 1);
             bugTracker[selectedOptionStatus].push(newBug);
-        }
+
         setShowBugModal(false);
         reload == 1 ? setReload(0) : setReload(1);
     }
@@ -141,8 +138,12 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
         <>
             {showBugModal ? (
                 <BugModalWrapper showBugModal={showBugModal}>
+                    <animated.div style={animation}>
+                    <Field>
                     <h3>#{num}</h3>
+                    </Field>
                     <Form>
+                        <Field>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalText">
                             <Form.Label column sm={2}>
                                 Title
@@ -151,11 +152,14 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
                                 <Form.Control type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)}/>
                             </Col>
                         </Form.Group>
-
+                        </Field>
+                        <Field>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Description</Form.Label>
                             <Form.Control as="textarea" rows={3} value={desc} onChange={e => setDesc(e.target.value)}/>
                         </Form.Group>
+                        </Field>
+                        <Field>
                         <Form.Label>Priority</Form.Label>
                         <select name='selectedOption' onChange={e => setSelectedOption(e.target.value)}>
                             {options.map(i => i == selectedOption ? (
@@ -164,6 +168,8 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
                                 </option>
                             ) : (<option value={i}>{i}</option>) )}
                         </select>
+                        </Field>
+                        <Field>
                         <Form.Label>Status</Form.Label>
                         <select name='selectedOptionStatus' onChange={e => setSelectedOptionStatus(e.target.value)}>
                             {optionsStatus.map(i => i == selectedOptionStatus ? (
@@ -172,17 +178,23 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
                                 </option>
                             ) : (<option value={i}>{i}</option>) )}
                         </select>
+                        </Field>
                     </Form>
                     <Row>
                         <Col xs={6}>
-                            <Button variant="danger" onClick={deleteBug}>Delete</Button>
+                            <PadButton>
+                            <Button variant="danger" onClick={deleteBug}><BsFillTrashFill/></Button>
+                            </PadButton>
                         </Col>
                         <Col xs={6}>
+                            <PadButton>
                             <Button variant="secondary" onClick={updateBug}>Save Changes</Button>{' '}
+                            </PadButton>
                         </Col>
                     </Row>
                     <CloseBugModalButton aria-label='Close BugModal' onClick={() => setShowBugModal(prev => !prev)}/>
-                </BugModalWrapper>
+                    </animated.div>
+                    </BugModalWrapper>
             ) : null
             }
         </>

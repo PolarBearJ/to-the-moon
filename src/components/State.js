@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { bugModal } from './Modal';
 import {GlobalStyle} from "../globalStyles";
 import BugCard from "./BugCard";
+import {useSpring, animated} from "react-spring";
 
 const Title = styled.div`
   color: aliceblue;
@@ -10,6 +11,7 @@ const Title = styled.div`
   margin: auto;
   width: 50%;
   padding: 10px;
+  text-align: center;
   font-family: Arial, sans-serif;
   
 `
@@ -27,8 +29,13 @@ const Container = styled.div`
 
 
 export default function State({title, bugList, bugTracker, setBugTracker, reload, setReload}) {
+    const animation = useSpring({
+        config: {duration: 250},
+        opacity: bugList.length > 0 ? 1 : 0,
+    })
     return(
         <> {bugList.length > 0 ?
+            <animated.div style={animation}>
             <Container>
                 <Title>{title}</Title>
                 {bugList.length > 0 ? (
@@ -37,6 +44,7 @@ export default function State({title, bugList, bugTracker, setBugTracker, reload
                         })
                 ) : null}
             </Container>
+            </animated.div>
             : null }
         </>
     )
