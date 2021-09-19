@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import {BugModal} from './BugModal';
 import {GlobalStyle} from "../globalStyles";
 import {AiOutlineNumber} from "react-icons/all";
+import {BsArrowUp} from "react-icons/all";
 
 const Container = styled.div`
   height: 15%;
@@ -17,21 +18,20 @@ const Container = styled.div`
   align-items: center;
 `
 const Title = styled.div`
-  position: fixed;
   width: 50%;
   font-size: 20px;
-  position: fixed;
+  position: absolute;
 `
 const Field = styled.div`
   width: 50%;
   font-size: 15px;
   justify-content: center;
   align-items: center;
-  transform: translateY(-95%);
-  position: fixed;
+  transform: translateY(-75%);
+  position: absolute;
 `
 const Button = styled.button`
-  transform: translateY(80%);
+  transform: translateY(50%);
   margin-left: 180px;
   min-width: 50px;
   padding: 8px 10px;
@@ -45,25 +45,30 @@ const Button = styled.button`
   `
 
 const Priority = styled.div`
-  transform: translateY(150%);
+  transform: translateY(50%);
+  margin-left: 90px;
   border-radius: 10px;
   border: none;
   color: #2D232E;
-  font-size: 20px;
-  cursor: pointer;
+  font-size: 30px;
   position: absolute;
   `
 
 export default function BugCard({bug}) {
+    const title = bug.title;
+    const num = bug.num;
+    const status = bug.status;
+    const desc = bug.desc;
+    const priority = bug.priority;
     const [showBugModal, setShowBugModal] = useState(false)
 
     const openBugModal = () =>{
         setShowBugModal(prev => !prev);
     }
-    const title = bug.title;
-    const num = bug.num;
-    const status = bug.status;
-    const desc = bug.desc;
+
+    let arrows = [];
+    arrows.length = priority;
+    arrows.fill(0);
     return(
         <>
             <GlobalStyle/>
@@ -71,7 +76,11 @@ export default function BugCard({bug}) {
                     <BugModal showBugModal={showBugModal} setShowBugModal={setShowBugModal}/>
                     <Title>{title}</Title> <Button onClick={openBugModal}>Inspect</Button>
                     <Field><AiOutlineNumber/> {num}</Field>
-                    <Priority>Prio: </Priority>
+                    <Priority>{bug.priority > 0 ? (
+                        arrows.map(i => {
+                            return <BsArrowUp/>
+                        })
+                    ) : null}</Priority>
                 </Container>
         </>
     )

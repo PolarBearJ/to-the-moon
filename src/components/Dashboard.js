@@ -27,14 +27,14 @@ const Button = styled.button`
 `
 let testBug = {
     num: 1,
-    title: "First",
+    title: "This is a test title",
     status: "Open",
     desc: "this is the description",
     priority: 2
 }
 
 let bugTracker = {
-    open: [testBug,testBug,testBug,testBug],
+    open: [testBug],
     in_progress: [],
     test: [],
     closed: [],
@@ -53,9 +53,9 @@ export default function Dashboard() {
             <GlobalStyle/>
             <Container>
                 <Button onClick={openModal}>Report a bug <AiFillBug/></Button>
-                <Modal showModal={showModal} setShowModal={setShowModal}/>
+                <Modal showModal={showModal} setShowModal={setShowModal} bugTracker={bugTracker}/>
                 <State title={"Open"} bugList={bugTracker.open}/>
-                <State title={"In Progress"} bugList={bugTracker.open}/>
+                <State title={"In Progress"} bugList={bugTracker.in_progress}/>
 
             </Container>
         </div>
