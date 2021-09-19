@@ -28,7 +28,7 @@ const Container = styled.div`
 
 export default function State({title, bugList, bugTracker, setBugTracker, reload, setReload}) {
     return(
-        <>
+        <> {bugList.length > 0 ?
             <Container>
                 <Title>{title}</Title>
                 {bugList.length > 0 ? (
@@ -37,6 +37,7 @@ export default function State({title, bugList, bugTracker, setBugTracker, reload
                         })
                 ) : null}
             </Container>
+            : null }
         </>
     )
 
