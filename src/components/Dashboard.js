@@ -11,6 +11,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url('https://wallpaperboat.com/wp-content/uploads/2019/10/free-space-background-01.jpg');
   background-color: #474448;
 `
 const Button = styled.button`
