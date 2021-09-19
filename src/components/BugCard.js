@@ -46,7 +46,6 @@ const Button = styled.button`
 
 const Priority = styled.div`
   transform: translateY(50%);
-  margin-left: 90px;
   border-radius: 10px;
   border: none;
   color: #2D232E;

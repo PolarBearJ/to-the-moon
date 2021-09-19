@@ -9,7 +9,7 @@ const Title = styled.div`
   color: aliceblue;
   font-size: 25px;
   margin: auto;
-  width: 50%;
+  width: 80%;
   padding: 10px;
   text-align: center;
   font-family: Arial, sans-serif;

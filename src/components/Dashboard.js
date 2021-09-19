@@ -42,7 +42,7 @@ export default function Dashboard() {
     }
 
     let [bugTracker, setBugTracker] = useState({
-        "Open": [testBug],
+        "Open": [],
         "In Progress": [],
         "Test": [],
         "Closed": [],
