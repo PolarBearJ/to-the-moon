@@ -1,16 +1,20 @@
 import React, {Component} from "react";
 import { RiSpaceShipFill } from "react-icons/ri"
 import { HiOutlineMail } from "react-icons/all";
+import styled from "styled-components";
 
-export class Header extends Component {
+export default function Header() {
+    const Header = styled.div`
+      color: aliceblue;
+      background-color: #2D232E;
+      font-size: 35px;
+`
 
-    render(){
         return(
-            <div>
-                <h1 className="left"><RiSpaceShipFill/> to the moon</h1>
-            </div>
+            <Header>
+                <RiSpaceShipFill/> to the moon
+            </Header>
         )
-    }
 
 
 }

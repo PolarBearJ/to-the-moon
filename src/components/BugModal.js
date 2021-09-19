@@ -3,6 +3,7 @@ import {useSpring, animated} from "react-spring";
 import styled, { css } from 'styled-components'
 import { MdClose } from "react-icons/md";
 
+
 const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -14,7 +15,7 @@ const Background = styled.div`
   z-index: 5;
 `;
 
-const ModalWrapper = styled.div`
+const BugModalWrapper = styled.div`
   width: 800px;
   height: 500px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
@@ -27,14 +28,14 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
 `;
 
-const ModalImg = styled.img`
+const BugModalImg = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 10px 0 0 10px;
   background: #000;
 `;
 
-const ModalContent = styled.div`
+const BugModalContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,7 +53,7 @@ const ModalContent = styled.div`
   }
 `;
 
-const CloseModalButton = styled(MdClose)`
+const CloseBugModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
   top: 20px;
@@ -63,32 +64,32 @@ const CloseModalButton = styled(MdClose)`
   z-index: 10;
 `;
 
-export const Modal = ({showModal, setShowModal}) => {
-    const modalRef = useRef()
+export const BugModal = ({showBugModal, setShowBugModal}) => {
+    const BugModalRef = useRef()
     const animation = useSpring({
         config: {duration: 250},
-        opacity: showModal ? 1 : 0,
-        transform: showModal ? `translateY(0%)` : `translateY(-100%)`
+        opacity: showBugModal ? 1 : 0,
+        transform: showBugModal ? `translateY(0%)` : `translateY(-100%)`
     })
-    const closeModal = e => {
-        if(modalRef.current === e.target){
-            setShowModal(false)
+    const closeBugModal = e => {
+        if(BugModalRef.current === e.target){
+            setShowBugModal(false)
         }
     }
 
     return (
         <>
-            {showModal ? (
-                <Background ref={modalRef} onClick={closeModal}>
+            {showBugModal ? (
+                <Background ref={BugModalRef} onClick={closeBugModal}>
                     <animated.div style={animation}>
-                    <ModalWrapper showModal={showModal}>
-                        <ModalContent>
-                            <h1>Blah blah blah</h1>
-                            <p>Something but with p tag</p>
-                            <button>Create</button>
-                        </ModalContent>
-                        <CloseModalButton aria-label='Close modal' onClick={() => setShowModal(prev => !prev)}/>
-                    </ModalWrapper>
+                        <BugModalWrapper showBugModal={showBugModal}>
+                            <BugModalContent>
+                                <h1>Blah blah blah</h1>
+                                <p>Something but with p tag</p>
+                                <button>Create</button>
+                            </BugModalContent>
+                            <CloseBugModalButton aria-label='Close BugModal' onClick={() => setShowBugModal(prev => !prev)}/>
+                        </BugModalWrapper>
                     </animated.div>
                 </Background>
             ) : null
