@@ -85,7 +85,7 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
     const [status, setStatus] = useState(bug.status)
     const [selectedOption, setSelectedOption] = useState(optionParserReverse[prio])
     const options = ["Low", "Moderate", "High"];
-    const [selectedOptionStatus, setSelectedOptionStatus] = useState(optionParserReverse[prio])
+    const [selectedOptionStatus, setSelectedOptionStatus] = useState(bug.status)
     const optionsStatus = ["Open", "In Progress", "Test", "Closed"];
 
     const BugModalRef = useRef()
@@ -102,30 +102,24 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
     function updateBug(){
         let bug_status = bug.status;
         let num = bug.num;
-        let len = bugTracker[status].length;
+        let len = bugTracker[bug.status].length;
         let bugIndex;
-        let changeState = false;
         for(let i = 0; i < len; i++){
-            if (bugTracker[bug_status][i].num == num){
-                if (status != bug.status) changeState = true;
-                bugIndex = i;
-            }
+            if (bugTracker[bug_status][i].num == num) bugIndex = i;
         }
-        if (changeState){
+        if (selectedOptionStatus != bug_status){
             let newBug = {
                 num: num,
                 title: title,
-                status: status,
+                status: selectedOptionStatus,
                 desc: desc,
                 priority: prio
             }
-            console.log(bugTracker[bug_status]);
             bugTracker[bug_status].splice(bugIndex, 1);
-            console.log(bugTracker[bug_status]);
-            bugTracker[status].push(newBug);
-            console.log(bugTracker[status]);
+            bugTracker[selectedOptionStatus].push(newBug);
         }
         setShowBugModal(false);
+        reload == 1 ? setReload(0) : setReload(1);
     }
     function deleteBug(){
         let status = bug.status;
@@ -140,7 +134,7 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
         bugTracker[status].splice(bugIndex, 1);
         setBugTracker(bugTracker);
         setShowBugModal(false);
-        setReload(1);
+        reload == 1 ? setReload(0) : setReload(1);
     }
 
     return (
@@ -171,7 +165,7 @@ export const BugModal = ({showBugModal, setShowBugModal, bugTracker, bug, setBug
                             ) : (<option value={i}>{i}</option>) )}
                         </select>
                         <Form.Label>Status</Form.Label>
-                        <select name='selectedOption' onChange={e => setSelectedOptionStatus(e.target.value)}>
+                        <select name='selectedOptionStatus' onChange={e => setSelectedOptionStatus(e.target.value)}>
                             {optionsStatus.map(i => i == selectedOptionStatus ? (
                                 <option value={i} selected>
                                     {i}

@@ -55,9 +55,9 @@ export default function Dashboard() {
                 <Button onClick={openModal}>Report a bug <AiFillBug/></Button>
                 <Modal showModal={showModal} setShowModal={setShowModal} bugTracker={bugTracker}/>
                 <State title={"Open"} bugList={bugTracker["Open"]} bugTracker={bugTracker} setBugTracker={setBugTracker} reload={reload} setReload={setReload}/>
-                <State title={"In Progress"} bugList={bugTracker["In Progress"]}/>
-                <State title={"Test"} bugList={bugTracker["Test"]}/>
-                <State title={"Closed"} bugList={bugTracker["Closed"]}/>
+                <State title={"In Progress"} bugList={bugTracker["In Progress"]} bugTracker={bugTracker} setBugTracker={setBugTracker} reload={reload} setReload={setReload}/>
+                <State title={"Test"} bugList={bugTracker["Test"]} bugTracker={bugTracker} setBugTracker={setBugTracker} reload={reload} setReload={setReload}/>
+                <State title={"Closed"} bugList={bugTracker["Closed"]} bugTracker={bugTracker} setBugTracker={setBugTracker} reload={reload} setReload={setReload}/>
 
             </Container>
         </div>
